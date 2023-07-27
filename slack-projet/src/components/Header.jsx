@@ -1,8 +1,7 @@
 import * as React from "react";
 import styled from 'styled-components'
 import {Avatar} from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
+
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 
 
