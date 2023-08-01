@@ -14,9 +14,18 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from teams.models import Team
+from users.models import User
+from tasks.models import Task
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("users/", include("users.urls")),
+    path("teams/", include("tems.urls")),
+    path("tasks/", include("tasks.urls")),
+    path("api-auth/", include("rest_framework.urls")),
+    path("users/dj-rest-auth/", include("dj_restframework.urls")),
+    path("users/dj-rest-auth/", include("dj_rest_auth.registration.urls")),
 ]
