@@ -1,7 +1,5 @@
 from django.db import models
-from django.conf import settings
-from tasks.models import Task
-from users.models import User
+from django.conf import Settings, settings
 
 
 class Team(models.Model):
@@ -11,20 +9,17 @@ class Team(models.Model):
         max_length=50,
     )
     creation_date = models.DateTimeField(
-        auto_now=True,
         auto_now_add=True,
     )
     task_created = models.ManyToManyField(
-        Task,
+        "tasks.Task",
         blank=False,
-        null=False,
     )
     creator = models.ForeignKey(
-        settings.AUTH,
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
     members = models.ManyToManyField(
-        User,
+        "users.User",
         blank=False,
-        null=False,
     )

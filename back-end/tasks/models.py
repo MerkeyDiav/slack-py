@@ -8,7 +8,10 @@ from teams.models import Team
 class Task(models.Model):
     title = models.CharField(max_length=300, blank=False, null=False)
     description = models.TextField(max_length=10000)
-    creator = models.ForeignKey(settings.AUTH, on_delete=models.CASCADE)
+    creator = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
     creation_date = models.DateTimeField(auto_now_add=True)
     team_managing_it = models.ForeignKey(
         Team,
