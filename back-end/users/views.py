@@ -12,12 +12,13 @@ from .models import User
 class UserList(generics.ListCreateAPIView):
     permission_classes = [
         permissions.IsAdminUser,
+        permissions.IsAuthenticatedOrReadOnly,
     ]
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (permissions.IsAdminUser,)
+    permission_classes = (permissions.IsAdminUser, permissions.IsAuthenticated)
     queryset = User.objects.all()
     serializer_class = UserSerializer

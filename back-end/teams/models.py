@@ -1,5 +1,7 @@
 from django.db import models
+from django.contrib.auth import authenticate
 from django.conf import Settings, settings
+from users.models import User
 
 
 class Team(models.Model):
@@ -13,13 +15,19 @@ class Team(models.Model):
     )
     task_created = models.ManyToManyField(
         "tasks.Task",
-        blank=False,
+        blank=True,
     )
     creator = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
+        related_name="creator_of_the_team",
     )
     members = models.ManyToManyField(
         "users.User",
-        blank=False,
+        blank=True,
+        related_name="members_of_this_team",
     )
+
+    class Meta:
+        verbose_name = "team"
+        verbose_name_plural = "teams"

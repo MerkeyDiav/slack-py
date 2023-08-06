@@ -1,16 +1,26 @@
-from .models import Team
-from .serializers import TeamSerializer
 from django.shortcuts import render
 from rest_framework import generics, permissions
 
+from .serializers import *
+from .permissions import *
+from .models import Team
 
-class TeamList(generics.ListCreateAPIView):
+
+class TeamCreateAPIView(generics.CreateAPIView):
     permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = TeamCreateSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(creator=self.request.user)
+
+
+class TeamListAPIView(generics.ListAPIView):
+    permission_classes = (permissions.IsAuthenticated, IsCreatorOrTeamMember)
     queryset = Team.objects.all()
     serializer_class = TeamSerializer
 
 
-class TeamDetail(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
+class TeamDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (permissions.IsAuthenticated, IsCreator)
     queryset = Team.objects.all()
-    serializer_class = TeamSerializer
+    serializer_class = TeamCreateSerializer

@@ -7,8 +7,8 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = (
             "id",
-            "firstname",
-            "lastname",
+            "first_name",
+            "last_name",
         )
         managed = True
         verbose_name = "user serializer"
